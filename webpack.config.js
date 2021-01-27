@@ -4,7 +4,6 @@ const Path = require('path');
 const Webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const ExtractTextPlugin = require('extract-text-webpack-plugin');
-// const ExtractSASS = new ExtractTextPlugin('styles/bundle.[hash].css');
 
 module.exports = (options) => {
   const dest = Path.join(__dirname, 'dist');
@@ -12,7 +11,7 @@ module.exports = (options) => {
   const rootPath = Path.join(__dirname);
   
   let webpackConfig = {
-    devtool: 'cheap-eval-source-map',
+    // devtool: 'cheap-eval-source-map',
     entry: [
       './src/index.tsx'
     ],
@@ -22,7 +21,7 @@ module.exports = (options) => {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: './src/index.html',
+        template: './public/index.html',
         minify: false
       })
     ],
@@ -39,18 +38,30 @@ module.exports = (options) => {
         //   }
         // },
         {
+          test: /\.(woff(2)?|otf|png|jpg|jpeg|gif|svg)$/,
+          use: [
+            {
+              loader: 'url-loader',
+              options: {
+                limit: 2 * 1024,
+              },
+            },
+          ],
+          exclude: /(node_modules)/,
+        },
+        {
           test: /\.tsx?$/,
           use: {
             loader: 'ts-loader',
             options: {
-              // getCustomTransformers: path.join(
-              //   __dirname,
-              //   './webpack-ts-transformers.js',
-              // ),
-              silent: false,//normalizedEnv.SILENT,
-              transpileOnly: true,//localTarget,
+              silent: false,
+              transpileOnly: true,
             },
           },
+        },
+        {
+          test: /\.css$/i,
+          use: ['css-loader'], // 'style-loader', 
         },
       ]
     },
@@ -65,14 +76,6 @@ module.exports = (options) => {
   webpackConfig.plugins.push(
     new Webpack.HotModuleReplacementPlugin()
   );
-
-  // webpackConfig.module.rules.push({
-  //   test: /\.s?css$/i,
-  //   use: ['style-loader', 'css-loader?sourceMap=true', {
-  //     loader: 'sass-loader',
-  //     options: { includePaths: [Path.join(__dirname, 'src/styles')] }
-  //   }]
-  // });
 
   webpackConfig.devServer = {
     contentBase: '/',

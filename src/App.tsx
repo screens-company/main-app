@@ -18,7 +18,7 @@ export class App extends React.PureComponent<IProps> {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3000/screen-share-session')
+    fetch(`${process.env.API_URL}/screen-share-session`)
       .then(result => result.json())
       .then(({sessions}) => this.setState({sessionIds: sessions}))
   }

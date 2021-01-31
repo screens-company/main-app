@@ -16,8 +16,9 @@ module.exports = (options) => {
       './src/index.tsx'
     ],
     output: {
+      publicPath: '/static/',
       path: dest,
-      filename: 'bundle.[hash].js'
+      filename: 'bundle.[chunkhash].js'
     },
     plugins: [
       new HtmlWebpackPlugin({

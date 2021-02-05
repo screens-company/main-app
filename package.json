@@ -5,7 +5,7 @@
   "homepage": "https://screens-company.github.io/main-app",
   "scripts": {
     "start": "npm run build:dev",
-    "build:dev": "NODE_ENV=development webpack -w",
+    "build:dev": "NODE_ENV=development webpack-dev-server --open --hot --config webpack.config.js --watch --colors --content-base dist/",
     "build:prod": "NODE_ENV=production webpack",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -36,9 +36,9 @@
     "dotenv-webpack": "^6.0.0",
     "ts-loader": "^8.0.14",
     "url-loader": "^4.1.1",
-    "webpack": "^5.18.0",
-    "webpack-cli": "^4.4.0",
-    "webpack-dev-server": "^3.11.2"
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
   },
   "browserslist": {
     "production": [

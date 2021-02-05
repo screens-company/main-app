@@ -6,25 +6,28 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 // const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-module.exports = (options) => {
+module.exports = (options, callback) => {
   const dest = Path.join(__dirname, 'dist');
   const port = 3001;
   const rootPath = Path.join(__dirname);
+  const STATIC_URL = '/static';
   
   let webpackConfig = {
+    mode: process.env.NODE_ENV,
     // devtool: 'cheap-eval-source-map',
     entry: [
       './src/index.tsx'
     ],
     output: {
-      publicPath: '/static/',
+      publicPath: process.env.NODE_ENV === 'production' ? STATIC_URL : undefined,
       path: dest,
-      filename: 'bundle.[chunkhash].js'
+      filename: 'bundle.[hash].js'
     },
     plugins: [
       new HtmlWebpackPlugin({
         template: './public/index.html',
-        minify: false
+        minify: false,
+        STATIC_URL,
       }),
       new Dotenv({
         path: `./env/.env.${process.env.NODE_ENV}`,

@@ -5,7 +5,7 @@ import {
   Search,
   ItemsWrapper,
   InnerWrapper,
-} from './LeftBarStyles';
+} from './BarStyles';
 import {logoImages} from "../images/logo";
 import {Items} from "./Items/Items";
 
@@ -17,7 +17,7 @@ interface IDispatchProps {}
 
 interface IProps extends IStateProps, IDispatchProps {}
 
-export class LeftBar extends React.PureComponent<IProps> {
+export class Bar extends React.PureComponent<IProps> {
   render() {
     return (
       <Wrapper>

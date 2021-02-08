@@ -1,10 +1,9 @@
 import React from 'react';
-import {
-  Wrapper,
-} from './AppStyles';
-import {LeftBar} from "./LeftBar/LeftBar";
-import {MainArea} from "./MainArea/MainArea";
-import {ActiveUserPopupContainer} from "./ActiveUserPopup/ActiveUserPopup";
+import {AuthForm} from "@/AuthForms/AuthForm";
+import {Bar} from "@/Bar/Bar";
+import {ActiveUserPopupContainer} from "@/ActiveUserPopup/ActiveUserPopup";
+import {MainArea} from "@/MainArea/MainArea";
+import {OuterStylesWrapper, Wrapper} from "@/AppStyles";
 
 interface IStateProps {}
 
@@ -12,10 +11,14 @@ interface IDispatchProps {}
 
 interface IProps extends IStateProps, IDispatchProps {}
 
+interface IState {
+  sessionIds: any[];
+}
+
 export class App extends React.PureComponent<IProps> {
-  state = {
+  state: IState = {
     sessionIds: [],
-  }
+  };
 
   componentDidMount() {
     fetch(`${process.env.API_URL}/screen-share-session`)
@@ -23,13 +26,31 @@ export class App extends React.PureComponent<IProps> {
       .then(({sessions}) => this.setState({sessionIds: sessions}))
   }
 
-  render() {
+
+  private getAuthForm = () => {
     return (
-      <Wrapper>
-        <LeftBar sessionIds={this.state.sessionIds} />
-        {false && <MainArea/>}
-        <ActiveUserPopupContainer/>
-      </Wrapper>
+      <OuterStylesWrapper>
+        <AuthForm type="sing-up" />
+      </OuterStylesWrapper>
+    );
+  };
+
+  render() {
+    /** Delete after adding routes **/
+    const testAuth = false;
+
+    if (testAuth) {
+      return this.getAuthForm();
+    }
+
+    return (
+      <OuterStylesWrapper>
+        <Wrapper>
+          <Bar sessionIds={this.state.sessionIds} />
+          {false && <MainArea/>}
+          <ActiveUserPopupContainer/>
+        </Wrapper>
+      </OuterStylesWrapper>
     );
   }
 }

@@ -5,4 +5,5 @@ export const colors = {
   gray300: '#929292',
   grayGreat: '#383838',
   green: '#1ACF7D',
+  blue: '#0000FF',
 };

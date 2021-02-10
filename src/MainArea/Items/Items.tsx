@@ -1,6 +1,6 @@
 import React from 'react';
 import {ItemsWrapper} from "./ItemStyles";
-import {fakeData} from "../../LeftBar/Items/Items";
+import {fakeData} from "../../Bar/Items/Items";
 import {ItemContainer} from "./Item";
 
 interface IStateProps {}

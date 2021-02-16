@@ -8,7 +8,7 @@ const Dotenv = require('dotenv-webpack');
 
 module.exports = (options, callback) => {
   const dest = Path.join(__dirname, 'dist');
-  const port = 3001;
+  const port = 3002;
   const rootPath = Path.join(__dirname);
   const STATIC_URL = '/static';
   

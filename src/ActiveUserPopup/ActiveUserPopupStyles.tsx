@@ -4,13 +4,13 @@ import {gray} from "../utils/gray";
 import {colors} from "../utils/colors";
 
 export const Wrapper = styled.div`
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
   background-color: ${gray(255, 1)};
   z-index: ${EZIndex.TWO};
+  min-width: 100vw;
+  min-height: 100vh;
 `;
 
 export const Exit = styled.img`
@@ -22,7 +22,7 @@ export const Exit = styled.img`
 `;
 
 export const ContentWrapper = styled.div`
-  padding: 127px 0 0 100px;
+  padding: 127px 100px 100px 100px;
 `;
 
 export const TitleButtonWrapper = styled.div`
@@ -64,9 +64,7 @@ export const PagePicture = styled.div`
 
 export const SessionIFrame = styled.iframe`
   margin-top: 35px;
-  width: 800px;
-  height: 400px;
   border-radius: 10px;
-  border: 1px solid ${colors.gray100};
+  border: 1px solid ${colors.blue};
   background: ${gray(255, 1)};
 `;

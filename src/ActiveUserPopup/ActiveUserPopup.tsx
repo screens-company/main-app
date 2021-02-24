@@ -8,8 +8,6 @@ import {
   Exit,
   ContentWrapper,
   Title,
-  PagePicture,
-  Button,
   TitleButtonWrapper,
   SessionIFrame,
 } from "./ActiveUserPopupStyles";
@@ -28,14 +26,33 @@ interface IDispatchProps {
 interface IProps extends IStateProps, IDispatchProps {}
 
 class ActiveUserPopup extends React.PureComponent<IProps> {
+  state = {
+    iframeWidth: 0,
+    iframeHeight: 0,
+  };
+
   private onClickExitHandler = () => {
     const {setActiveUser} = this.props;
 
     setActiveUser(DEFAULT_USER);
   };
 
+  private handleIframeSize = (width: number, height: number) => {
+    if (width && height) {
+      this.setState({
+        iframeWidth: width,
+        iframeHeight: height,
+      });
+    }
+  };
+
+  componentDidMount() {
+    window.addEventListener("message", (e) => this.handleIframeSize(e.data?.width, e.data?.height), false);
+  }
+
   render() {
     const {isActiveUser, activeUser} = this.props;
+    const {iframeHeight, iframeWidth} = this.state;
 
     if (!isActiveUser) {
       return null;
@@ -50,10 +67,9 @@ class ActiveUserPopup extends React.PureComponent<IProps> {
         <ContentWrapper>
           <TitleButtonWrapper>
             <Title>{activeUser.title}</Title>
-            <Button>Request control</Button>
           </TitleButtonWrapper>
           {/* <PagePicture/> */}
-          <SessionIFrame src={`http://localhost:3001/admin?sid=${activeUser.title}`} />
+          <SessionIFrame width={iframeWidth} height={iframeHeight} src={`http://localhost:3001/admin?sid=${activeUser.title}`} />
         </ContentWrapper>
       </Wrapper>
     );

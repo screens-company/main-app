@@ -23,7 +23,7 @@ export class App extends React.PureComponent<IProps> {
   componentDidMount() {
     fetch(`${process.env.API_URL}/screen-share-session`)
       .then(result => result.json())
-      .then(({sessions}) => this.setState({sessionIds: sessions}))
+      .then(({sessions}) => this.setState({sessionIds: sessions}));
   }
 
 

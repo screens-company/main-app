@@ -21,9 +21,14 @@ export class App extends React.PureComponent<IProps> {
   };
 
   componentDidMount() {
-    fetch(`${process.env.API_URL}/screen-share-session`)
+    const token = new URLSearchParams(window.location.search).get('token');
+    fetch(`${process.env.API_URL}/screen-share-session/${token}`)
       .then(result => result.json())
-      .then(({sessions}) => this.setState({sessionIds: sessions}));
+      .then(({sessions}) => {
+        if (sessions && sessions.length) {
+          this.setState({sessionIds: sessions});
+        }
+      });
   }
 
 

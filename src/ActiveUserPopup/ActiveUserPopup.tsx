@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {IStore} from "../reducers/reducers";
 import {selectActiveUser, selectIsActiveUser} from "../modules/users/users.selectors";
 import {IActiveUser, setActiveUser} from '../modules/users/users.actions';
+import {getQueryParam} from '../utils/query';
 import {
   Wrapper,
   Exit,
@@ -69,7 +70,7 @@ class ActiveUserPopup extends React.PureComponent<IProps> {
             <Title>{activeUser.title}</Title>
           </TitleButtonWrapper>
           {/* <PagePicture/> */}
-          <SessionIFrame width={iframeWidth} height={iframeHeight} src={`http://localhost:3001/admin?sid=${activeUser.title}`} />
+          <SessionIFrame width={iframeWidth} height={iframeHeight} src={`http://localhost:3001/admin?sid=${activeUser.title}&token=${getQueryParam('token')}`} />
         </ContentWrapper>
       </Wrapper>
     );

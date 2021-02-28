@@ -9,13 +9,12 @@ import {
   Exit,
   ContentWrapper,
   Title,
-  PagePicture,
-  Button,
   TitleButtonWrapper,
   SessionIFrame,
 } from "./ActiveUserPopupStyles";
 import {DEFAULT_USER} from "../modules/users/users.reducers";
 import {activeUserPopupImages} from "../images/activeUserPopup";
+import {PostMessageType} from "@/types/postMessage";
 
 interface IStateProps {
   activeUser: IActiveUser;
@@ -29,14 +28,33 @@ interface IDispatchProps {
 interface IProps extends IStateProps, IDispatchProps {}
 
 class ActiveUserPopup extends React.PureComponent<IProps> {
+  state = {
+    iframeWidth: 0,
+    iframeHeight: 0,
+  };
+
   private onClickExitHandler = () => {
     const {setActiveUser} = this.props;
 
     setActiveUser(DEFAULT_USER);
   };
 
+  private handleIframeSize = (width: number, height: number) => {
+    if (width && height) {
+      this.setState({
+        iframeWidth: width,
+        iframeHeight: height,
+      });
+    }
+  };
+
+  componentDidMount() {
+    window.addEventListener(PostMessageType, (e) => this.handleIframeSize(e.data?.width, e.data?.height), false);
+  }
+
   render() {
     const {isActiveUser, activeUser} = this.props;
+    const {iframeHeight, iframeWidth} = this.state;
 
     if (!isActiveUser) {
       return null;
@@ -51,10 +69,9 @@ class ActiveUserPopup extends React.PureComponent<IProps> {
         <ContentWrapper>
           <TitleButtonWrapper>
             <Title>{activeUser.title}</Title>
-            <Button>Request control</Button>
           </TitleButtonWrapper>
           {/* <PagePicture/> */}
-          <SessionIFrame src={`http://localhost:3001/admin?sid=${activeUser.title}&token=${getQueryParam('token')}`} />
+          <SessionIFrame width={iframeWidth} height={iframeHeight} src={`http://localhost:3001/admin?sid=${activeUser.title}&token=${getQueryParam('token')}`} />
         </ContentWrapper>
       </Wrapper>
     );

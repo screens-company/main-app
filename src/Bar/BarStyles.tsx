@@ -37,7 +37,7 @@ export const Search = styled.input`
   margin: 10px 0 20px 30px;
   width: 80%;
   height: 40px;
-  border: 1px solid ${colors.gray100};
+  border: 1px solid ${colors.blue};
   color: ${colors.grayGreat};
   font-size: 12px;
   font-weight: 500;

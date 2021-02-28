@@ -14,6 +14,7 @@ import {
 } from "./ActiveUserPopupStyles";
 import {DEFAULT_USER} from "../modules/users/users.reducers";
 import {activeUserPopupImages} from "../images/activeUserPopup";
+import {PostMessageType} from "@/types/postMessage";
 
 interface IStateProps {
   activeUser: IActiveUser;
@@ -48,7 +49,7 @@ class ActiveUserPopup extends React.PureComponent<IProps> {
   };
 
   componentDidMount() {
-    window.addEventListener("message", (e) => this.handleIframeSize(e.data?.width, e.data?.height), false);
+    window.addEventListener(PostMessageType, (e) => this.handleIframeSize(e.data?.width, e.data?.height), false);
   }
 
   render() {
